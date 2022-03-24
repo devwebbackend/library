@@ -152,7 +152,7 @@ class BookController extends Controller
        $section['section'] = Section::findOrFail($book->section_id);
        //dd($section);
        DB::table('book_author')->where('book_id',$book->id)->delete();
-       $book->delete();
+      // $book->delete();
       
        
         return redirect()->route('sections.show',$section)->with('succes','your book deleted successfuly');

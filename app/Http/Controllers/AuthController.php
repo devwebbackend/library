@@ -83,8 +83,32 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $author=Aurhor::find($id);
+        $author->first_name = $request->first_name;
+        $author->last_name = $request->last_name;
+        $author->address=$request->address;
+        $author->DOB=$request->DOB;
+        $result=$author->save();
+        if($result)
+        return ["result"=>"data saved succeffully"];
+        else
+        return ["result"=>"data note saved"];
     }
+    public function search( $name)
+  {
+     // return ['data'=>'first api','fer'=>'dfg'];
+ //$author = new Author();
+// $author=Aurhor::where('first_name',$name)->get();
+$author=Aurhor::where('first_name',"like","%".$name."%")->get();
+if($author)
+ {
+   return ['author'=>"author deleted secceffuly"];
+ }
+ else
+ {
+  return ['author'=>"author not deleted "];
+ }
+  }
 
     /**
      * Remove the specified resource from storage.
@@ -92,8 +116,9 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Author $author)
     {
-        //
+       // Aurhor::find($id)->delete();
+       $author->delete();
     }
 }
